@@ -1,0 +1,32 @@
+{
+    "name": "samwilson/piwigo-cli",
+    "description": "A PHP command-line client for Piwigo.",
+    "license": "gpl-3.0-or-later",
+    "require": {
+        "symfony/console": "^7",
+        "guzzlehttp/guzzle": "^8",
+        "symfony/yaml": "^7.4"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "*",
+        "php-parallel-lint/php-parallel-lint": "*",
+        "opsway/psr12-strict-coding-standard": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Samwilson\\PiwigoCli\\": "./src/"
+        }
+    },
+    "scripts": {
+        "test": [
+            "composer validate --ansi",
+            "./vendor/bin/parallel-lint --exclude vendor .",
+            "./vendor/bin/phpcs --standard=.phpcs.xml -s ."
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}

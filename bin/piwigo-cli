@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__.'/../vendor/autoload.php';
+
+use Samwilson\PiwigoCli\UploadCommand;
+use Symfony\Component\Console\Application;
+
+$application = new Application( 'piwigo-cli', '@git-tag@' );
+$application->addCommand(new UploadCommand());
+$application->run();
