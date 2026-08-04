@@ -102,13 +102,13 @@ class UploadCommand extends Command
     private function uploadOne(string $filePath, string $tags)
     {
         $md5            = md5_file($filePath);
-        $existsRequest  = $this->client->get($this->apiUrl . '&' . http_build_query([
-            'method'      => 'pwg.images.exist',
-            'md5sum_list' => $md5,
-        ]));
+        $existsRequest  = $this->client->post($this->apiUrl, [
+            'query'       => ['format' => 'json'],
+            'form_params' => ['method' => 'pwg.images.exist', 'md5sum_list' => $md5],
+        ]);
         $existsResponse = json_decode($existsRequest->getBody()->getContents() ?? '', true);
         if (isset($existsResponse['result'][$md5])) {
-            $this->io->writeln(sprintf('    File exists: ID %s', $existsResponse['result'][$md5]));
+            $this->io->writeln(sprintf('    File already exists: ID %s', $existsResponse['result'][$md5]));
             return;
         }
         $uploadResponse = $this->client->post($this->apiUrl, [
